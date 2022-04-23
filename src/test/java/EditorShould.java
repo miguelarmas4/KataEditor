@@ -38,4 +38,20 @@ public class EditorShould {
         assertEquals(formattedTextExpected.toString(), strAnswer.toString());
     }
 
+    @Test
+    void lineBreaksOnSpacesIfExists() {
+        originalText = "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.";
+        lineWidth = 40;
+
+        formattedTextExpected = new StringBuilder();
+        formattedTextExpected.append("Lorem Ipsum es simplemente el texto de").append("\n");
+        formattedTextExpected.append("relleno de las imprentas y archivos de").append("\n");
+        formattedTextExpected.append("texto. Lorem Ipsum ha sido el texto de").append("\n");
+        formattedTextExpected.append("relleno estándar de las industrias").append("\n");
+        formattedTextExpected.append("desde el año 1500.");
+
+        StringBuilder strAnswer = txtEditor.formatText(originalText, lineWidth);
+        assertEquals(formattedTextExpected.toString(), strAnswer.toString());
+    }
+
 }
