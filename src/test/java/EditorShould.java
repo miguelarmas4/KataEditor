@@ -36,7 +36,6 @@ public class EditorShould {
 
         StringBuilder strAnswer = txtEditor.formatText(originalText, lineWidth);
         assertEquals(formattedTextExpected.toString(), strAnswer.toString());
-
     }
 
 }
