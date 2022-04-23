@@ -4,13 +4,16 @@ public class Editor {
     public StringBuilder formatText(String strOriginal, int lineWidth) {
         StringBuilder strResult = new StringBuilder();
 
-        int actualPosition = 0;
-        while (actualPosition + lineWidth <= strOriginal.length()) {
+        for (int actualPosition = 0; actualPosition < strOriginal.length(); actualPosition += lineWidth) {
             if (actualPosition > 0) {
                 strResult.append("\n");
             }
-            strResult.append(strOriginal.substring(actualPosition, actualPosition+lineWidth) );
-            actualPosition += lineWidth;
+
+            if (actualPosition + lineWidth > strOriginal.length()) {
+                strResult.append(strOriginal.substring(actualPosition) );
+            } else {
+                strResult.append(strOriginal.substring(actualPosition, actualPosition+lineWidth) );
+            }
         }
 
         return strResult;

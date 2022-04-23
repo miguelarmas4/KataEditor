@@ -12,16 +12,30 @@ public class EditorShould {
     @Test
     void initialTextDivision() {
         originalText = "Tenerife";
-        lineWidth = 2;
+        lineWidth = 3;
 
         formattedTextExpected = new StringBuilder();
-        formattedTextExpected.append("Te").append("\n");
-        formattedTextExpected.append("ne").append("\n");;
-        formattedTextExpected.append("ri").append("\n");;
+        formattedTextExpected.append("Ten").append("\n");
+        formattedTextExpected.append("eri").append("\n");
         formattedTextExpected.append("fe");
 
         StringBuilder strAnswer = txtEditor.formatText(originalText, lineWidth);
-        assertEquals(formattedTextExpected,  strAnswer);
+        assertEquals(formattedTextExpected.toString(), strAnswer.toString());
+
+    }
+
+    @Test
+    void widthExactlyLastSubstringWidth() {
+        originalText = "Tenerifes";
+        lineWidth = 3;
+
+        formattedTextExpected = new StringBuilder();
+        formattedTextExpected.append("Ten").append("\n");
+        formattedTextExpected.append("eri").append("\n");
+        formattedTextExpected.append("fes");
+
+        StringBuilder strAnswer = txtEditor.formatText(originalText, lineWidth);
+        assertEquals(formattedTextExpected.toString(), strAnswer.toString());
 
     }
 
