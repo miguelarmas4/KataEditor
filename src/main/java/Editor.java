@@ -1,18 +1,21 @@
 public class Editor {
     public Editor() { }
 
-    public String formatearTexto(int ancho, int largo, String texto) {
+    public StringBuilder formatText(String strOriginal, int lineWidth) {
+        StringBuilder strResult = new StringBuilder();
 
-        String resultado = "";
-
-        //int largo = 2;
-        for (int i = 0; i < texto.length(); i++) {
-            if (i==largo) {
-                resultado += texto.substring(ancho) + "\r\n" + texto.substring(ancho, texto.length());
+        int actualPosition = 0;
+        while (actualPosition + lineWidth <= strOriginal.length()) {
+            if (actualPosition > 0) {
+                strResult.append("\n");
             }
+            strResult.append(strOriginal.substring(actualPosition, actualPosition+lineWidth) );
+            actualPosition += lineWidth;
         }
 
-        return resultado;
+        return strResult;
+
     }
+
 
 }
