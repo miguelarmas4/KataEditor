@@ -1,44 +1,30 @@
 public class Editor {
-    public Editor() { }
-
-    public StringBuilder formatText(String strOriginal, int lineWidth) {
-        StringBuilder strResult = new StringBuilder();
-        int changePosition = 0;
-
-        for (int actualPosition = 0; actualPosition < strOriginal.length(); actualPosition += lineWidth) {
-
-            if (actualPosition > 0) {
-                strResult.append("\n");
-            }
-
-            if (changePosition != 0) {
-                actualPosition -= changePosition;
-                changePosition = 0;
-            }
-
-            if (actualPosition + lineWidth > strOriginal.length()) {  // <-- End of text
-                strResult.append(strOriginal.substring(actualPosition) );
-            } else {
-
-                int breakPos = findBreakPoint(strOriginal, actualPosition, lineWidth);
-                strResult.append(strOriginal.substring(actualPosition, breakPos) );
-                changePosition = lineWidth - breakPos + actualPosition;
-
-            }
-        }
-
-        return strResult;
-
+    public Editor() {
     }
 
-    public int findBreakPoint(String strOriginal, int actualPosition, int lineWidth) {
-        for (int i = lineWidth-2; i >=0; i--){
-            if(strOriginal.substring(actualPosition+i, actualPosition+i+1).equals(" ")) {
-                return actualPosition + i + 1;
-            }
-        }
-        return actualPosition+lineWidth;
-    }
+    public String formatText(String strOriginal, int lineWidth) {
 
+        int spacePos = strOriginal.indexOf(" ");
+        if (lineWidth >= strOriginal.length() & spacePos == -1) {
+            return strOriginal;
+        }
+
+        int breakPos = (spacePos > -1 && spacePos < lineWidth)
+                ? (spacePos == 0 && spacePos < strOriginal.length() - 1)
+                        ? (strOriginal.charAt(spacePos + 1) == ' ')
+                                ? spacePos + 1
+                                : spacePos
+                        : spacePos
+                : lineWidth;
+
+        String cuttedText = strOriginal.substring(0, breakPos).concat("\n");;
+        String uncuttedText = strOriginal.substring(breakPos);
+
+        if (spacePos==0) {
+            uncuttedText = uncuttedText.replaceFirst(" ", "");
+        }
+
+        return cuttedText.concat(formatText(uncuttedText, lineWidth));
+    }
 
 }
